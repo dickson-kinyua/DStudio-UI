@@ -6,10 +6,12 @@ import {
   fetchTodo,
 } from "../Features/Slices/taskSlice";
 import { Link } from "react-router-dom";
+import LoginPage from "./LoginPage";
 
 const DisplayAllTasks = () => {
   const tasks = useSelector((state) => state.task.tasks);
-  console.log(tasks);
+  const userInfo = useSelector((state) => state.user.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,7 +61,7 @@ const DisplayAllTasks = () => {
     }
   };
 
-  return (
+  return userInfo?.userName ? (
     <div className="flex flex-col gap-5 p-2">
       <Link to={"/home"} className="underline">
         Back to homepage
@@ -118,6 +120,8 @@ const DisplayAllTasks = () => {
         Clear list ✖
       </button>
     </div>
+  ) : (
+    <LoginPage />
   );
 };
 

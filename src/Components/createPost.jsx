@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { fetchTodo } from "../Features/Slices/taskSlice";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoginPage from "../Pages/LoginPage";
 import { Link } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const CreatePost = () => {
   const [priority, setPriority] = useState("normal");
 
   const userInfo = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
 
   const handlePriority = (e) => {
     setPriority(e.target.value);
@@ -39,6 +41,7 @@ const CreatePost = () => {
         return;
       }
       setTodo("");
+      dispatch(fetchTodo());
     } catch (error) {
       console.log(error);
     }

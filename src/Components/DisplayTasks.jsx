@@ -9,9 +9,9 @@ const DisplayTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.tasks) || [];
 
-  useEffect(() => {
-    dispatch(fetchTodo());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchTodo());
+  // }, [dispatch]);
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.reduce(
