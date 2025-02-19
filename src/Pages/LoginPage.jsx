@@ -53,7 +53,6 @@ const LoginPage = () => {
           type="text"
           placeholder="Name"
           value={name}
-          maxLength={6}
           onChange={(e) => setName(e.target.value)}
           className="p-3 text-gray-800 bg-gray-200"
         />
