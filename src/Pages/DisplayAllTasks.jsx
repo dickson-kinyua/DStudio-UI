@@ -17,11 +17,8 @@ const DisplayAllTasks = () => {
   }, [dispatch]);
 
   const handleCompleted = async (id) => {
-    const updated = tasks?.map((task) =>
-      task._id === id ? { ...task, completed: "!completed" } : task
-    );
-    console.log(updated);
-    dispatch(updateTasks(updated));
+    //optimistic UI updating
+    dispatch(updateTasks(id));
 
     try {
       console.log(id);
@@ -38,6 +35,7 @@ const DisplayAllTasks = () => {
       }
     } catch (error) {
       console.error("Error updating task:", error);
+      dispatch(updateTasks(id));
     }
   };
 

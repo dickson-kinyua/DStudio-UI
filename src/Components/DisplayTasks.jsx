@@ -28,11 +28,9 @@ const DisplayTasks = () => {
   const colors = ["#0088FE", "#DDDDDD"]; // Blue for completed, gray for remaining
 
   const handleCompleted = async (id) => {
-    const updated = tasks?.map((task) =>
-      task._id === id ? { ...task, completed: "!completed" } : task
-    );
+    //optimistic UI updating
 
-    dispatch(updateTasks(updated));
+    dispatch(updateTasks(id));
 
     try {
       const response = await fetch(
@@ -46,10 +44,9 @@ const DisplayTasks = () => {
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
-
-      dispatch(fetchTodo()); // Refresh tasks only if update succeeds
     } catch (error) {
       console.error("Error updating task:", error);
+      dispatch(updateTasks(id));
     }
   };
   return (
