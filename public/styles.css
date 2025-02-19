@@ -1,0 +1,24 @@
+.active {
+  background-color: #7950f2;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.activebtn {
+  color: #fff;
+  background-color: #7950f2;
+  padding: 10px;
+  border-radius: 20px;
+  /* width: fit-content; */
+}
+.inActive {
+  color: gray;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 20px;
+}
