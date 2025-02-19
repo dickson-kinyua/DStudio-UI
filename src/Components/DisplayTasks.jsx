@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 const DisplayTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.tasks) || [];
+  const userInfo = useSelector((state) => state.user.user);
 
-  // useEffect(() => {
-  //   dispatch(fetchTodo());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchTodo());
+  }, [dispatch]);
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.reduce(
@@ -82,21 +83,23 @@ const DisplayTasks = () => {
 
       <div>
         <p className="font-medium text-xl">To do today</p>
-        <ul className="flex flex-col gap-1 mt-2">
-          {tasks.slice(0, 3).map((task) => (
-            <li
-              key={task._id}
-              className="bg-gray-300 p-2 rounded-2xl text-gray-800"
-            >
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleCompleted(task._id)}
-              />{" "}
-              {task.todo}
-            </li>
-          ))}
-        </ul>
+        {userInfo?.userName && (
+          <ul className="flex flex-col gap-1 mt-2">
+            {tasks.slice(0, 3).map((task) => (
+              <li
+                key={task._id}
+                className="bg-gray-300 p-2 rounded-2xl text-gray-800"
+              >
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleCompleted(task._id)}
+                />{" "}
+                {task.todo}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div className="flex flex-row gap-6">
         <Link to="/tasks" className="underline">
