@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../Features/Slices/UserSlice";
+import { invalidateUser } from "../Features/Slices/UserSlice";
 import { Link } from "react-router-dom";
 import { deleteAllTasks } from "../Features/Slices/taskSlice";
 
@@ -15,15 +15,14 @@ const Header = () => {
         credentials: "include",
         method: "POST",
       });
-      if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        return;
-      }
 
       const res = await response.json();
-      console.log(res);
-      dispatch(updateUser({}));
+
+      if (!response.ok) {
+        console.log(res.error);
+        return;
+      }
+      dispatch(invalidateUser({}));
       dispatch(deleteAllTasks());
     } catch (error) {
       console.log(error);
