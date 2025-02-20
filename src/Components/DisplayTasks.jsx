@@ -87,9 +87,9 @@ const DisplayTasks = () => {
             <Legend />
           </PieChart>
         </div>
-        <div className="relative w-full flex items-center justify-center sm:items-start text-gray-900 font-semibold mt-4 sm:mt-1">
+        <div className="relative w-full flex items-center justify-center sm:items-start text-gray-900 font-semibold mt-10 sm:mt-1">
           <Link
-            className="bg-gray-200  rounded-2xl w-fit text-center p-2"
+            className="bg-gray-200  rounded-2xl w-fit text-center p-2 "
             to="/addTask"
           >
             + Create new goal

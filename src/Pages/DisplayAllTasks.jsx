@@ -87,7 +87,7 @@ const DisplayAllTasks = () => {
         </Link>
         {tasks?.length > 0 ? (
           <button className="p-2 underline" onClick={clearTasks}>
-            Clear list❌
+            Clear list
           </button>
         ) : (
           <Link
@@ -98,14 +98,10 @@ const DisplayAllTasks = () => {
           </Link>
         )}
       </div>
-      {/* <p className="font-bold text-2xl">
-        {tasks?.length === 0
-          ? "Make your day productive"
-          : `Today you have ${tasks.length} tasks!`}
-      </p> */}
+
       <div className="flex flex-col gap-2 p-2">
         <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
-        <ul className="pl-1 grid ">
+        <ul className="pl-1 grid grid-cols-1 gap-1">
           {tasks
             ?.filter((task) => task.priority === "high")
             .map((task) => (
