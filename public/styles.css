@@ -22,3 +22,42 @@
   padding: 10px;
   border-radius: 20px;
 }
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 2s, visibility 2s;
+}
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 255, 255);
+  border: 3px solid rgb(228, 223, 230);
+  border-top-color: rgb(2, 88, 128);
+  border-top-color: orange;
+  border-radius: 50%;
+  animation: loading 2s ease infinite;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}

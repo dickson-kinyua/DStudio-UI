@@ -11,9 +11,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading("loader");
     const data = { name, password };
 
     try {
@@ -28,10 +30,13 @@ const LoginPage = () => {
         const error = await response.json();
         console.log(error);
         setError(error.error);
+        setLoading("");
+
         return;
       }
 
       const res = await response.json();
+      setLoading("");
 
       dispatch(updateUser(res));
       setRedirect(true);
@@ -46,6 +51,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col gap-3 p-2">
+      <div className={loading}></div>
       <p className="text-xl">Sign in and get started</p>
       <form
         onSubmit={handleLogin}

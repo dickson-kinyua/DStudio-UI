@@ -7,10 +7,11 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
+    setLoading("loader");
     const data = { name, password };
 
     try {
@@ -24,11 +25,10 @@ const RegisterPage = () => {
         const error = await response.json();
         console.log(error);
         setError(error.error);
+        setLoading("");
         return;
       }
-
-      const res = await response.json();
-      console.log(res);
+      setLoading("");
       setRedirect(true);
     } catch (error) {
       console.log(error);
@@ -41,6 +41,7 @@ const RegisterPage = () => {
 
   return (
     <div className="flex flex-col w-full gap-5 p-2 ">
+      <div className={loading}></div>
       <p className="text-xl">Create a new account</p>
       <form
         onSubmit={handleRegister}
