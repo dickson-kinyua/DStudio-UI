@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import FooterNav from "../Components/Footer";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../Features/Slices/UserSlice";
 import { Navigate } from "react-router-dom";
 
 const RegisterPage = () => {
@@ -8,6 +10,7 @@ const RegisterPage = () => {
   const [error, setError] = useState(null);
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState("");
+  const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -19,16 +22,17 @@ const RegisterPage = () => {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
       });
+      const res = await response.json();
 
       if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        setError(error.error);
+        setError(res.error);
         setLoading("");
         return;
       }
       setLoading("");
+      dispatch(updateUser(res));
       setRedirect(true);
     } catch (error) {
       console.log(error);
@@ -36,7 +40,7 @@ const RegisterPage = () => {
   };
 
   if (redirect) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/home"} />;
   }
 
   return (
