@@ -16,10 +16,13 @@ const DisplayAllTasks = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost:5000/fetchPosts", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/fetchPosts`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
 

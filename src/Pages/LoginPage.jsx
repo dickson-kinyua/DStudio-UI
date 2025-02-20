@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateUser } from "../Features/Slices/UserSlice";
 
 const LoginPage = () => {
-  const userInfo = useSelector((state) => state.user.user);
+  // const userInfo = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
