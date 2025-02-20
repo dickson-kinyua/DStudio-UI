@@ -9,13 +9,13 @@ import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import Profile from "./Pages/Profile";
-import Priority from "./Pages/priority";
+import Priority from "./Pages/Tips";
 
 function App() {
   return (
     <Router>
       <div
-        className=" text-gray-700 bg-gray-100
+        className=" text-gray-700 
        h-[100vh] sm:h-auto"
       >
         <Routes>
@@ -26,7 +26,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/priority" element={<Priority />} />
+          <Route path="/tips" element={<Priority />} />
         </Routes>
       </div>
     </Router>

@@ -30,15 +30,20 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between bg-gray-200 rounded-2xl p-2 border-solid border-2 border-orange-500">
+    <div className="flex flex-row items-center justify-between bg-gray-200  p-2">
       <div className="font-bold">
         <p>DStudio</p>
       </div>
       <div className="flex flex-row gap-4 items-center">
         {userInfo?.userName ? (
-          <button onClick={logout}>Logout</button>
+          <button onClick={logout} className="hover:text-orange-500">
+            Logout
+          </button>
         ) : (
-          <Link to={"/login"} className="bg-orange-500 py-1 px-2 rounded-xl">
+          <Link
+            to={"/login"}
+            className=" py-1 px-2 rounded-xl hover:text-orange-500"
+          >
             Sign in
           </Link>
         )}

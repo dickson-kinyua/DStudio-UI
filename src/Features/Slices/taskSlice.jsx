@@ -1,30 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchTodo = createAsyncThunk("tasks/fetchTodo", async (_, { rejectWithValue }) => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/fetchPosts`, {
-      credentials: "include",
-      method: "GET",
-    });
+export const fetchTodo = createAsyncThunk(
+  "tasks/fetchTodo",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/fetchPosts`,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to fetch tasks");
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch tasks");
+      }
+
+      // ✅ Check if the response contains valid tasks
+      if (!Array.isArray(data)) {
+        console.warn("No tasks found or user not logged in.");
+        return rejectWithValue("User not logged in or no tasks available");
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-
-    // ✅ Check if the response contains valid tasks
-    if (!Array.isArray(data)) {
-      console.warn("No tasks found or user not logged in.");
-      return rejectWithValue("User not logged in or no tasks available");
-    }
-
-    return data;
-  } catch (error) {
-    return rejectWithValue(error.message);
   }
-});
-
+);
 
 const taskSlice = createSlice({
   name: "task",
@@ -37,8 +42,8 @@ const taskSlice = createSlice({
     deleteAllTasks: (state) => {
       state.tasks = [];
     },
-    logout: (state) => {
-      state.tasks = []; // ✅ Clear tasks on logout
+    setTasks: (state, action) => {
+      state.tasks = action.payload;
       state.loading = false;
       state.error = null;
     },
@@ -51,29 +56,29 @@ const taskSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-  builder
-    .addCase(fetchTodo.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(fetchTodo.fulfilled, (state, action) => {
-      state.loading = false;
-      
-      if (typeof action.payload === "string") {
-        // If the payload is an error message (from rejectWithValue), do nothing
-        console.log(action.payload);
-        return;
-      }
+    builder
+      .addCase(fetchTodo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTodo.fulfilled, (state, action) => {
+        state.loading = false;
 
-      state.tasks = action.payload;
-    })
-    .addCase(fetchTodo.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload; // Store error message
-      state.tasks = []; // Clear tasks when the user is not logged in
-    });
-}
+        if (typeof action.payload === "string") {
+          // If the payload is an error message (from rejectWithValue), do nothing
+          console.log(action.payload);
+          return;
+        }
+
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTodo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload; // Store error message
+        state.tasks = []; // Clear tasks when the user is not logged in
+      });
+  },
 });
 
-export const { deleteAllTasks, updateTasks } = taskSlice.actions;
+export const { deleteAllTasks, setTasks, updateTasks } = taskSlice.actions;
 export default taskSlice.reducer;

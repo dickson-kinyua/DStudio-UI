@@ -34,7 +34,6 @@ const LoginPage = () => {
       const res = await response.json();
 
       dispatch(updateUser(res));
-      console.log(userInfo);
       setRedirect(true);
     } catch (error) {
       console.log(error);
@@ -46,9 +45,9 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 pt-5 items-center">
-      <p className="font-bold text-2xl">Login</p>
-      <form onSubmit={handleLogin} className="flex flex-col gap-3 mt-10 w-3/4">
+    <div className="flex flex-col gap-3 p-2">
+      <p className="text-xl">Sign in and get started</p>
+      <form onSubmit={handleLogin} className="flex flex-col gap-3  w-3/4">
         <input
           type="text"
           placeholder="Name"

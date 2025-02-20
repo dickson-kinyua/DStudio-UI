@@ -48,31 +48,33 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-5 p-3">
+    <div className="w-full flex flex-col gap-2 p-3">
       <Link to={"/home"} className="underline p-2">
         Back to homepage
       </Link>
       {userInfo?.userName ? (
         <form
           onSubmit={handleCreateTask}
-          className="flex flex-col items-center w-3/4 mx-auto gap-4 p-3"
+          className="flex flex-col w-3/4 gap-4 p-3"
         >
           <input
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
-            maxLength={8}
+            maxLength={20}
             type="text"
-            className="p-2 text-black w-full bg-white"
+            className="p-2 text-black w-full bg-gray-200"
             placeholder="Task title"
           />
           <select
             onChange={(e) => handlePriority(e)}
-            className="bg-white text-gray-900 w-full p-2"
+            className="bg-gray-200 text-gray-900 w-full p-2"
           >
             <option value="normal">Priority(Normal)</option>
             <option value="high">Priority(High)</option>
           </select>
-          <button className="bg-orange-600 w-full p-3">Add to list 📃 </button>
+          <button className="bg-orange-600 w-full p-3 text-white">
+            Add to list 📃{" "}
+          </button>
           {error && <div className="text-red-500">{error}</div>}
         </form>
       ) : (

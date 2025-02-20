@@ -9,7 +9,6 @@ const Layout = () => {
       <Header />
       <Welcoming />
       <DisplayTasks />
-      {/* <FooterNav /> */}
     </div>
   );
 };

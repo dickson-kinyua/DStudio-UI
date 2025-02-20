@@ -40,15 +40,12 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full items-center pt-5 h-[100vh] bg-orange-500 z-40">
-      <p className="font-bold text-2xl">Register a new account</p>
-      <form
-        onSubmit={handleRegister}
-        className="flex flex-col gap-4 mt-10 w-3/4"
-      >
+    <div className="flex flex-col w-full gap-5 p-2 ">
+      <p className="text-xl">Create a new account</p>
+      <form onSubmit={handleRegister} className="flex flex-col gap-4  w-3/4">
         <input
           type="text"
-          placeholder="Your name( max 8 characters)"
+          placeholder="Username( max 8 characters)"
           value={name}
           maxLength={8}
           onChange={(e) => setName(e.target.value)}

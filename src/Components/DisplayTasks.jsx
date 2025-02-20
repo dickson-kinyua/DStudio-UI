@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodo, updateTasks } from "../Features/Slices/taskSlice";
+import { setTasks, updateTasks } from "../Features/Slices/taskSlice";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
@@ -11,8 +11,22 @@ const DisplayTasks = () => {
   const userInfo = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(fetchTodo());
-  }, [dispatch]);
+    const fetchPosts = async () => {
+      const response = await fetch("http://localhost:5000/fetchPosts", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.log(data.error);
+        return;
+      }
+      dispatch(setTasks(data));
+    };
+    fetchPosts();
+  }, [dispatch, userInfo]);
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.reduce(
@@ -51,41 +65,43 @@ const DisplayTasks = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-3  p-2">
-      <div className="h-auto flex justify-center w-full bg-orange-500 p-2 rounded-2xl">
-        <PieChart width={300} height={160}>
-          <Pie
-            data={pieData}
-            cx="50%"
-            cy="50%"
-            innerRadius={30}
-            outerRadius={60}
-            fill="#8884d8"
-            paddingAngle={2}
-            dataKey="value"
+    <div className="flex flex-col gap-3 p-2">
+      <div className="flex flex-col sm:flex-row w-full">
+        <div className="h-auto flex justify-center  bg-orange-500 p-2 rounded-2xl sm:mt-1">
+          <PieChart width={300} height={160}>
+            <Pie
+              data={pieData}
+              cx="50%"
+              cy="50%"
+              innerRadius={30}
+              outerRadius={60}
+              fill="#8884d8"
+              paddingAngle={2}
+              dataKey="value"
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colors[index]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </div>
+        <div className="relative w-full flex items-center justify-center sm:items-start text-gray-900 font-semibold mt-4 sm:mt-1">
+          <Link
+            className="bg-gray-200  rounded-2xl w-fit text-center p-2"
+            to="/addTask"
           >
-            {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </div>
-      <div className="w-full flex items-center justify-center text-gray-900 font-semibold mt-4">
-        <Link
-          className="bg-white rounded-2xl w-fit text-center p-2"
-          to="/addTask"
-        >
-          + Create new goal
-        </Link>
+            + Create new goal
+          </Link>
+        </div>
       </div>
 
-      <div>
-        <p className="font-medium text-xl">To do today</p>
+      <div className="flex flex-col gap-2 sm:absolute right-5 top-48">
+        <p className="font-medium text-xl sm:text-center">To do today📝</p>
         {userInfo?.userName && (
           <ul className="flex flex-col gap-1 mt-2">
-            {tasks.slice(0, 3).map((task) => (
+            {tasks.slice(0, 2).map((task) => (
               <li
                 key={task._id}
                 className="bg-gray-300 p-2 rounded-2xl text-gray-800"
@@ -100,24 +116,15 @@ const DisplayTasks = () => {
             ))}
           </ul>
         )}
+        <div className="flex flex-row gap-6 ">
+          <Link to="/tasks" className="underline">
+            View all tasks ↗
+          </Link>
+          <Link to="/tips" className="underline">
+            Tips for today ↗
+          </Link>
+        </div>
       </div>
-      <div className="flex flex-row gap-6">
-        <Link to="/tasks" className="underline">
-          View all tasks ↗
-        </Link>
-        <Link to="/priority" className="underline">
-          High priority ↗
-        </Link>
-      </div>
-
-      {/* <div className="h-[20vh] border-solid border-2 border-gray-100">
-        <p className="bg-white text-gray-900 p-1">Today's Advice</p>
-        <ul className="p-1">
-          <li>Remember to get some sunlight ☀️</li>
-          <li>Spend time with nature 🌿</li>
-          <li>Learn something new 📖</li>
-        </ul>
-      </div> */}
     </div>
   );
 };

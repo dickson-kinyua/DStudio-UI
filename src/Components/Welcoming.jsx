@@ -11,17 +11,17 @@ const Welcoming = () => {
   return (
     <div className="w-full p-2">
       {userInfo.userName ? (
-        <p className="text-xl font-bold text-center h-10 capitalize">
+        <p className="text-xl font-bold text-center sm:text-left h-10 capitalize">
           {completedTasks <= 0 && `Welcome back, ${userInfo.userName}!`}
           {completedTasks > 0 &&
             completedTasks < totalTasks &&
-            "Yuhuu, your work is almost done!"}
+            "💪Yuhuu, your work is almost done!"}
           {completedTasks === totalTasks &&
-            "You are a masterpiece, congratulations!"}
+            "🎉You are a masterpiece, congratulations!"}
         </p>
       ) : (
         <p className="text-xl  font-bold text-center">
-          Get started by signing in
+          Stay organized and boost your productivity with DStudio
         </p>
       )}
     </div>
