@@ -42,7 +42,10 @@ const RegisterPage = () => {
   return (
     <div className="flex flex-col w-full gap-5 p-2 ">
       <p className="text-xl">Create a new account</p>
-      <form onSubmit={handleRegister} className="flex flex-col gap-4  w-3/4">
+      <form
+        onSubmit={handleRegister}
+        className="flex flex-col gap-4  w-3/4 md:w-1/4"
+      >
         <input
           type="text"
           placeholder="Username( max 8 characters)"

@@ -41,6 +41,7 @@ const CreatePost = () => {
         return;
       }
       setTodo("");
+      setError("");
       dispatch(fetchTodo());
     } catch (error) {
       console.log(error);
@@ -49,13 +50,38 @@ const CreatePost = () => {
 
   return (
     <div className="w-full flex flex-col gap-2 p-3">
-      <Link to={"/home"} className="underline p-2">
+      <Link to={"/home"} className="underline p-2 lg:hidden">
         Back to homepage
       </Link>
+      <p className="hidden lg:block pl-4">Create a new task</p>
+      <form
+        onSubmit={handleCreateTask}
+        className="hidden md:flex flex-col w-3/4 gap-4 p-3 "
+      >
+        <input
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+          maxLength={20}
+          type="text"
+          className="p-2 text-black w-full bg-gray-200"
+          placeholder="Task title"
+        />
+        <select
+          onChange={(e) => handlePriority(e)}
+          className="bg-gray-200 text-gray-900 w-full p-2"
+        >
+          <option value="normal">Priority(Normal)</option>
+          <option value="high">Priority(High)</option>
+        </select>
+        <button className="bg-orange-600 w-full p-3 text-white">
+          Add to list 📃{" "}
+        </button>
+        {error && <div className="text-red-500">{error}</div>}
+      </form>
       {userInfo?.userName ? (
         <form
           onSubmit={handleCreateTask}
-          className="flex flex-col w-3/4 gap-4 p-3"
+          className="flex flex-col w-3/4 gap-4 p-3 md:hidden"
         >
           <input
             value={todo}
@@ -78,7 +104,9 @@ const CreatePost = () => {
           {error && <div className="text-red-500">{error}</div>}
         </form>
       ) : (
-        <LoginPage />
+        <div className="md:hidden">
+          <LoginPage />
+        </div>
       )}
 
       {/* <FooterNav /> */}

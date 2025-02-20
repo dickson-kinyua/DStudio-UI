@@ -8,7 +8,7 @@ const Priority = () => {
       <Link to={"/home"} className="underline">
         Back to homepage
       </Link>
-      <div className="border-solid border-2 border-gray-100">
+      <div className="border-solid border-2 border-gray-100 w-fit">
         <p className="bg-white text-gray-900 font-bold p-1">Today's tips</p>
         <ul className="p-1 list-disc pl-5">
           <li>Remember to get some sunlight ☀️</li>

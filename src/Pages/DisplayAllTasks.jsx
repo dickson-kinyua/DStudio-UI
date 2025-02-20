@@ -80,13 +80,13 @@ const DisplayAllTasks = () => {
   }
 
   return userInfo?.userName ? (
-    <div className="flex flex-col gap-5 p-2">
+    <div className="flex flex-col gap-5 p-2 md:absolute right-0  sm:w-1/2 lg:w-3/5">
       <div className="flex flex-row items-center justify-between">
-        <Link to={"/home"} className="underline sticky top-0">
+        <Link to={"/home"} className="underline sticky top-0 md:hidden">
           Back to homepage
         </Link>
         {tasks?.length > 0 ? (
-          <button className="p-2 underline" onClick={clearTasks}>
+          <button className="p-2 underline lg:px-52" onClick={clearTasks}>
             Clear list
           </button>
         ) : (
@@ -98,54 +98,57 @@ const DisplayAllTasks = () => {
           </Link>
         )}
       </div>
-
-      <div className="flex flex-col gap-2 p-2">
-        <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
-        <ul className="pl-1 grid grid-cols-1 gap-1">
-          {tasks
-            ?.filter((task) => task.priority === "high")
-            .map((task) => (
-              <li
-                className={`flex flex-row gap-2 bg-gray-300 p-2 rounded-2xl text-gray-800 ${
-                  task.completed ? "line-through text-gray-500" : ""
-                }`}
-                key={task._id}
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleCompleted(task._id)}
-                />
-                {task.todo}
-              </li>
-            ))}
-        </ul>
-      </div>
-      <div className="flex flex-col gap-2 p-2">
-        <p className="font-semibold text-xl">Other tasks</p>
-        <ul className="pl-1 grid grid-cols-1 gap-1">
-          {tasks
-            ?.filter((task) => task.priority !== "high")
-            .map((task) => (
-              <li
-                className={`flex flex-row gap-2 bg-gray-300 p-2 rounded-2xl text-gray-800 ${
-                  task.completed ? "line-through text-gray-500" : ""
-                }`}
-                key={task._id}
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleCompleted(task._id)}
-                />
-                {task.todo}
-              </li>
-            ))}
-        </ul>
+      <div className="flex flex-col gap-3 lg:flex-row lg:justify-between lg:px-52">
+        <div className="flex flex-col gap-2 p-2 lg:w-3/5">
+          <p className="font-semibold text-xl h-[4vh]">High priority🔥</p>
+          <ul className="pl-1 grid grid-cols-1 gap-1">
+            {tasks
+              ?.filter((task) => task.priority === "high")
+              .map((task) => (
+                <li
+                  className={`flex flex-row gap-2 bg-gray-300 p-2 rounded-2xl text-gray-800 ${
+                    task.completed ? "line-through text-gray-500" : ""
+                  }`}
+                  key={task._id}
+                >
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleCompleted(task._id)}
+                  />
+                  {task.todo}
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div className="flex flex-col gap-2 p-2 lg:w-3/5">
+          <p className="font-semibold text-xl">Other tasks</p>
+          <ul className="pl-1 grid grid-cols-1 gap-1">
+            {tasks
+              ?.filter((task) => task.priority !== "high")
+              .map((task) => (
+                <li
+                  className={`flex flex-row gap-2 bg-gray-300 p-2 rounded-2xl text-gray-800 ${
+                    task.completed ? "line-through text-gray-500" : ""
+                  }`}
+                  key={task._id}
+                >
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleCompleted(task._id)}
+                  />
+                  {task.todo}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </div>
   ) : (
-    <LoginPage />
+    <div className="lg:hidden">
+      <LoginPage />
+    </div>
   );
 };
 

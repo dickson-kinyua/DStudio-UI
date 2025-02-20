@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between bg-gray-200  p-2">
+    <div className="flex flex-row items-center justify-between md:sticky top-0 z-20 bg-gray-200  p-2">
       <div className="font-bold">
         <p>DStudio</p>
       </div>

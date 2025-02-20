@@ -20,7 +20,7 @@ const Welcoming = () => {
             "🎉You are a masterpiece, congratulations!"}
         </p>
       ) : (
-        <p className="text-xl  font-bold text-center">
+        <p className="text-xl  font-bold text-center md:text-start">
           Stay organized and boost your productivity with DStudio
         </p>
       )}

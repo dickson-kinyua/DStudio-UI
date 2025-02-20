@@ -47,7 +47,10 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col gap-3 p-2">
       <p className="text-xl">Sign in and get started</p>
-      <form onSubmit={handleLogin} className="flex flex-col gap-3  w-3/4">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col gap-3  w-3/4 md:w-1/4"
+      >
         <input
           type="text"
           placeholder="Name"

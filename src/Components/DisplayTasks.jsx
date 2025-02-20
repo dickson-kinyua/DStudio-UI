@@ -4,6 +4,8 @@ import { setTasks, updateTasks } from "../Features/Slices/taskSlice";
 import React, { useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { Link } from "react-router-dom";
+import DisplayAllTasks from "../Pages/DisplayAllTasks";
+import CreatePost from "./createPost";
 
 const DisplayTasks = () => {
   const dispatch = useDispatch();
@@ -65,9 +67,9 @@ const DisplayTasks = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-3 p-2">
-      <div className="flex flex-col sm:flex-row w-full">
-        <div className="h-auto flex justify-center  bg-orange-500 p-2 rounded-2xl sm:mt-1">
+    <div className="flex flex-col md:flex-row gap-3 md:w-1/3 lg:w-2/5">
+      <div className="flex flex-col sm:flex-row md:flex-col w-full">
+        <div className="h-auto flex justify-center bg-orange-500 p-2 rounded-2xl sm:mt-1 lg:h-[200px]">
           <PieChart width={300} height={160}>
             <Pie
               data={pieData}
@@ -87,7 +89,7 @@ const DisplayTasks = () => {
             <Legend />
           </PieChart>
         </div>
-        <div className="relative w-full flex items-center justify-center sm:items-start text-gray-900 font-semibold mt-10 sm:mt-1">
+        <div className="md:hidden relative w-full flex items-center justify-center sm:items-start text-gray-900 font-semibold mt-10 sm:mt-1">
           <Link
             className="bg-gray-200  rounded-2xl w-fit text-center p-2 "
             to="/addTask"
@@ -95,12 +97,15 @@ const DisplayTasks = () => {
             + Create new goal
           </Link>
         </div>
+        <div className="hidden lg:block">
+          <CreatePost />
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2 sm:absolute right-5 top-48">
+      <div className="flex flex-col gap-2 sm:absolute top-48 md:hidden right-5  lg:top-0">
         <p className="font-medium text-xl sm:text-center">To do today📝</p>
         {userInfo?.userName && (
-          <ul className="flex flex-col gap-1 mt-2">
+          <ul className="flex flex-col gap-1 lg:gap-3 mt-2">
             {tasks.slice(0, 2).map((task) => (
               <li
                 key={task._id}
@@ -116,7 +121,7 @@ const DisplayTasks = () => {
             ))}
           </ul>
         )}
-        <div className="flex flex-row gap-6 ">
+        <div className="flex flex-row gap-6">
           <Link to="/tasks" className="underline">
             View all tasks ↗
           </Link>
@@ -124,6 +129,9 @@ const DisplayTasks = () => {
             Tips for today ↗
           </Link>
         </div>
+      </div>
+      <div className="hidden md:block">
+        <DisplayAllTasks tasks={tasks} />
       </div>
     </div>
   );
