@@ -11,8 +11,8 @@ const Priority = () => {
       <div className="border-solid border-2 border-gray-100 w-fit">
         <p className="bg-white text-gray-900 font-bold p-1">Today's tips</p>
         <ul className="p-1 list-disc pl-5">
-          <li>Remember to get some sunlight ☀️</li>
-          <li>Spend time with nature 🌿</li>
+          <li>Have some sun ☀️</li>
+          <li>Exercise 🤸‍♂️</li>
           <li>Learn something new 📖</li>
         </ul>
       </div>
