@@ -50,6 +50,8 @@ const CreatePost = () => {
 
       if (!response.ok) {
         setError(data.error);
+        dispatch(fetchTodo());
+
         return;
       }
       setTodo("");
