@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import { fetchTodo } from "../Features/Slices/taskSlice";
+import { addTask, fetchTodo } from "../Features/Slices/taskSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import LoginPage from "../Pages/LoginPage";
@@ -21,6 +21,18 @@ const CreatePost = () => {
   const handleCreateTask = async (e) => {
     const newPost = { todo, priority };
     setTodo("");
+    dispatch(
+      addTask({
+        _id: "",
+        todo: todo,
+        priority: priority,
+        completed: false,
+        author: "",
+        createdAt: "",
+        updatedAt: "",
+        __v: 0,
+      })
+    );
 
     e.preventDefault();
     try {
@@ -45,6 +57,7 @@ const CreatePost = () => {
       dispatch(fetchTodo());
     } catch (error) {
       console.log(error);
+      dispatch(fetchTodo());
     }
   };
 
