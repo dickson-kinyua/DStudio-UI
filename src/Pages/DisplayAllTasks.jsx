@@ -51,6 +51,7 @@ const DisplayAllTasks = () => {
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
+      dispatch(updateTasks(id));
     } catch (error) {
       console.error("Error updating task:", error);
       dispatch(updateTasks(id)); //revert to tasks state if error occurs
