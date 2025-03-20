@@ -44,7 +44,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full gap-5 p-2 ">
+    <div className="flex flex-col items-center w-full gap-5 p-2 ">
       <div className={loading}></div>
       <p className="text-xl">Create a new account</p>
       <form
@@ -55,6 +55,7 @@ const RegisterPage = () => {
           type="text"
           placeholder="Username( max 8 characters)"
           value={name}
+          required
           maxLength={8}
           onChange={(e) => setName(e.target.value)}
           className="p-3 text-gray-700 bg-gray-200"
@@ -63,6 +64,7 @@ const RegisterPage = () => {
           type="password"
           placeholder="password"
           value={password}
+          required
           onChange={(e) => setPassword(e.target.value)}
           className="p-3 text-gray-700 bg-gray-200"
         />
